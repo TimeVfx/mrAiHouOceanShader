@@ -10,26 +10,25 @@ This project derives from [mrAiVexShader](https://github.com/mruegenberg/mrAiVex
   For details, see the [Houdini HDK documentation](https://www.sidefx.com/docs/hdk/_h_d_k__intro__compiling.html#HDK_Intro_Compiling_Windows).
 
 ## Compilation/Installation
-1. Get the Arnold SDK for your system and Arnold version from [SolidAngle](https://www.solidangle.com/arnold/download/) and put it in `deps`.
+1. Get the Arnold SDK for your system with Arnold version from [SolidAngle](https://www.solidangle.com/arnold/download/) and put it in `deps`.
 2. Adjust the path to match your Arnold SDK and Houdini versions in `compile.sh` / `compile.bat`  
   (depending on your system, you just need to modify the .bat (Windows) or .sh (Linux/OS X)).
 3. Windows only: you might also have to modify the `MSVCDir` line in `compile.bat` to point to where you installed it  
    (by default, the system variable is used and if that is not defined, we assume Visual Studio Community Edition).
 4. Run the script for your OS from the command line
-5. Copy `ai_ocean_samplelayers.dll/.so/.dylib` from the `build` to the `dso` directory in your Arnold installation (or wherever your Arnold looks for shaders).  
-   Do the Same with the `.mtd` file from the `src` folder (this provides the shader UI). It's easiest to put both somewhere in your `ARNOLD_PLUGIN_PATH` (and potentially add `[ARNOLD_PLUGIN_PATH]` to the *Procedural Path* in the System section of your Arnold settings).
+5. Copy `ai_ocean_samplelayers.dll/.so/.dylib` from the `build` to the `/arnold/plugins` directory in your Arnold installation (or wherever your Arnold looks for shaders).  
+   Do the Same with the `.mtd` file from the `src` folder (this provides the shader UI). 
 6. Start Houdini with Arnold and have some fun. (It's theoretically even possible to use this without Houdini, e.g in Maya or C4D, but you will probably use that to author the ocean spectra anyway.)
 
 # Usage
 
 1. Cache your ocean spectra to disk with the regular Houdini workflow for this. 
 2. In you `Arnold Shader Network` or `Arnold Material Builder`, create a new `Ai Ocean Samplelayers` node.
-3. Connect its output to the `input` slot of a `Vector Map` node with `Tangent Space` disabled, and connect that to the `displacement` slot on your `Material Output` node.
-4. The `a` output of `Ai Ocean Samplelayers` corresponds to the `cusp` output of Houdini's `Ocean Sample Layers` node and can be used for shading
+3. Connect that to the `displacement` slot on your `Material Output` node.
 
 ## Examples
 
-See the [blog post](https://www.marcelruegenberg.com/blog/2020/9/9/houdini-arnold-ocean-spectra)
+See the [blog post](https://www.marcelruegenberg.com/blog/2020/12/13/houdini-arnold-ocean-spectra.html)
 
 # Status and Limitations
 

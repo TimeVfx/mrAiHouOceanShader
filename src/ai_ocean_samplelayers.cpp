@@ -104,7 +104,7 @@ node_loader
     if (i > 0) return FALSE;
    
     node->methods      = AiHOceanShdMethods;
-    node->output_type  = AI_TYPE_RGBA; // displacement + cusp info. currently we have no way of getting velocity and cuspdir out. 
+    node->output_type  = AI_TYPE_VECTOR; // displacement + cusp info. currently we have no way of getting velocity and cuspdir out. 
     node->name         = "ai_ocean_samplelayers";
     node->node_type    = AI_NODE_SHADER;
     strcpy(node->version, AI_VERSION);
@@ -114,7 +114,7 @@ node_loader
 
 shader_evaluate
 {
-    sg->out.RGBA() = AI_RGB_RED; // dummy
+
 
     ShaderData* data = (ShaderData*) AiNodeGetLocalData(node);
 
@@ -134,7 +134,12 @@ shader_evaluate
 #ifdef _WIN32
         _mktemp_s(data->codeFilename, strlen(data->codeFilename));
 #else
-        mkstemp(data->codeFilename);
+        int fd;
+        fd = mkstemp(data->codeFilename);
+        if (fd == -1)
+        {
+            printf("Generated filename was: %s\n", data->codeFilename);
+        }
 #endif
         // std::tmpnam(data->codeFilename); // TODO: add pragma to silence the unsafe warning?
         strncat(data->codeFilename, ".vfl", 150);

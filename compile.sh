@@ -1,16 +1,16 @@
 #! /bin/bash
 if [ -z "$HOUDINI_DIR" ]; then
-    export HOUDINI_DIR=/opt/hfs18.5.351
+    export HOUDINI_DIR=/opt/hfs18.5.499
 fi
 
 # if [ -z "$HFS" ]; then
     export HFS=$HOUDINI_DIR
-    export PATH=$HFS\bin:$PATH
+    export PATH=$HFS/bin:$PATH
     export CUR=`pwd`
     cd $HFS
     echo "HOUDINI DIR: "
     echo `pwd`
-    source houdini_setup
+    source $HFS/houdini_setup
     cd $CUR
 # fi
 
